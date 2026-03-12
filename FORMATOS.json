@@ -1,0 +1,133 @@
+{
+    "auth": {
+        "POST /api/auth/login": {
+            "request": {
+                "email": "juan@example.com",
+                "password": "mi_password123"
+            },
+            "response_success": {
+                "msg": "Login exitoso",
+                "usuario": {
+                    "id": 1,
+                    "email": "juan@example.com",
+                    "rol": "paciente"
+                },
+                "X-User-Id": 1
+            }
+        },
+        "GET /api/auth/validar": {
+            "headers": {
+                "X-User-Id": "1"
+            },
+            "response_success": {
+                "valido": true,
+                "usuario": {
+                    "id": 1,
+                    "email": "juan@example.com",
+                    "rol": "paciente"
+                }
+            }
+        }
+    },
+    "usuarios": {
+        "POST /api/usuarios/registro": {
+            "request": {
+                "nombre": "Juan Perez",
+                "email": "juan@example.com",
+                "password": "mi_password123",
+                "rol": "paciente"
+            },
+            "response_success": {
+                "id": 1,
+                "nombre": "Juan Perez",
+                "email": "juan@example.com",
+                "rol": "paciente",
+                "updatedAt": "2023-10-25T12:00:00.000Z",
+                "createdAt": "2023-10-25T12:00:00.000Z"
+            }
+        }
+    },
+    "citas": {
+        "POST /api/citas": {
+            "headers": {
+                "X-User-Id": "1"
+            },
+            "request": {
+                "pacienteId": 1,
+                "medicoId": 2,
+                "fecha": "2023-11-01",
+                "hora": "10:00",
+                "disponibilidadId": 5
+            },
+            "response_success": {
+                "id": 10,
+                "pacienteId": 1,
+                "medicoId": 2,
+                "fecha": "2023-11-01",
+                "hora": "10:00",
+                "estado": "programada",
+                "updatedAt": "2023-10-25T12:05:00.000Z",
+                "createdAt": "2023-10-25T12:05:00.000Z"
+            }
+        },
+        "GET /api/citas/paciente": {
+            "headers": {
+                "X-User-Id": "1"
+            },
+            "response_success": [
+                {
+                    "id": 10,
+                    "pacienteId": 1,
+                    "medicoId": 2,
+                    "fecha": "2023-11-01",
+                    "hora": "10:00",
+                    "estado": "programada",
+                    "createdAt": "2023-10-25..."
+                }
+            ]
+        }
+    },
+    "historial": {
+        "POST /api/historial": {
+            "headers": {
+                "X-User-Id": "2"
+            },
+            "request": {
+                "pacienteId": 1,
+                "medicoId": 2,
+                "diagnostico": "Resfriado común",
+                "tratamiento": "Descanso y paracetamol",
+                "notasAdicionales": "Ninguna"
+            },
+            "response_success": {
+                "id": 1,
+                "pacienteId": 1,
+                "medicoId": 2,
+                "fecha": "2023-10-25T12:10:00.000Z",
+                "diagnostico": "Resfriado común",
+                "tratamiento": "Descanso y paracetamol",
+                "notasAdicionales": "Ninguna",
+                "updatedAt": "2023-10-25...",
+                "createdAt": "2023-10-25..."
+            }
+        }
+    },
+    "notificaciones": {
+        "GET /api/notificaciones": {
+            "headers": {
+                "X-User-Id": "1"
+            },
+            "response_success": [
+                {
+                    "id": 1,
+                    "usuarioId": 1,
+                    "mensaje": "El Dr. con ID 2 ha actualizado tu historial médico.",
+                    "tipo": "push",
+                    "leida": false,
+                    "fecha": "2023-10-25T12:10:01.000Z",
+                    "createdAt": "2023-10-25..."
+                }
+            ]
+        }
+    }
+}
